@@ -1,37 +1,46 @@
-// function wordCount() {
-//   let wordscount = document.getElementById('wordscount');
-//   let words = document.getElementById('words');
-//   let wordcount = wordscount.textContent.split(' ');
+const wordscount = document.querySelector('#wordscount');
+let countBtn = document.getElementById('countBtn');
+let alertCopied = document.querySelector('#alert-copied');
+let alertErr = document.querySelector('#alert-err');
+let wordsDisplay = document.querySelector('#words');
 
-//   for (let i = 0; i < wordcount.length; i++) {
+wordscount.addEventListener('input', () => {
 
-//     if (wordcount == 0) {
+  let count = wordscount.value;
 
-//       words.style.display = 'block';
-//       words.innerText = 'Type some words to count'
+  wordsDisplay.style.display = 'flex';
+  if (count === '') {
 
-//     } else {
+    wordsDisplay.style.display = 'none';
 
-//       words.style.display = 'block';
-//       wordcount += 1;
-//       words.innerText = `The Number of Words Typed: ${wordcount}`;
-//       console.log(wordcount)
+  }
 
-//     }
-//   }
-//   return wordcount
-// }
+  wordsDisplay.innerHTML = 'Total Words Types: ' + getWordCount(count);
+
+});
 
 
-let countBtn = document.querySelector('count')
-let wordscount = document.querySelector('wordscount')
+function getWordCount(str) {
 
-let count = 0;
+  return str.trim().split(/\s+/).length;
 
-
-let countWords = wordscount.textContent.split(' ');
-
-for (let i = 0; i < countWords.length; i++) {
-  count += countWords[i];
-  console.log(count);
 }
+
+countBtn.addEventListener('click', function () {
+  navigator.clipboard.writeText(wordscount.value);
+
+  if (wordscount.value === '') {
+    alertErr.style.display = 'flex';
+  } else {
+
+    alertCopied.style.display = 'flex';
+  
+  }
+
+  setTimeout(() => {
+
+    alertCopied.style.display = 'none';
+    alertErr.style.display = 'none';
+
+  }, 5000);
+});
