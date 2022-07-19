@@ -2,25 +2,34 @@ const wordscount = document.querySelector('#wordscount');
 let countBtn = document.getElementById('countBtn');
 let alertCopied = document.querySelector('#alert-copied');
 let alertErr = document.querySelector('#alert-err');
-let wordsDisplay = document.querySelector('#words');
+let words = document.querySelector('#words');
+let chars = document.querySelector('#chars');
+let displayS = document.querySelector('#display');
 
 wordscount.addEventListener('input', () => {
 
   let count = wordscount.value;
 
-  wordsDisplay.style.display = 'flex';
-  if (count === '') {
+  displayS.style.display = 'flex';
 
-    wordsDisplay.style.display = 'none';
+  if (count === '' || chars === '') {
+
+    displayS.style.display = 'none';
 
   }
 
-  wordsDisplay.innerHTML = 'Total Words Types: ' + getWordCount(count);
+  words.innerHTML = 'Total words count: ' + getWordCount(count);
+  chars.innerHTML = 'Total character count: ' + getCharsCount(count);
 
 });
 
+const getCharsCount = (count) => {
+  
+    return count.length;
+}
 
-function getWordCount(str) {
+
+const getWordCount = (str) => {
 
   return str.trim().split(/\s+/).length;
 
